@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'enabled' => false,
     'driver' => 'mysql',
     'host' => 'database',
     'port' => 3306,

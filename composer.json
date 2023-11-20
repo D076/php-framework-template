@@ -1,0 +1,28 @@
+{
+  "name": "d076/php-framework-template",
+  "description": "Template for d076/php-framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dmitry Titov",
+      "email": "dezmond076@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "d076/php-framework": "dev-main"
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/D076/php-framework.git",
+      "type": "vcs"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

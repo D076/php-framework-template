@@ -1,0 +1,57 @@
+name: backend
+services:
+  backend-nginx:
+    image: nginx:alpine
+    container_name: backend-nginx
+    ports:
+      - '${DEPLOYMENT_PROXY_PORT:-8000}:80'
+    volumes:
+      - './:/var/www'
+      - './deploy/nginx/local:/etc/nginx/conf.d/'
+      - '${APP_STORAGE_PATH}:/mnt/storage'
+    networks:
+      - backend
+
+  backend-fpm:
+    build:
+      args:
+        user: backend-user
+        uid: 1000
+        app_mode: development
+      context: ./
+      dockerfile: deploy/fpm/Dockerfile
+    image: backend
+    container_name: backend-fpm
+    working_dir: /var/www/
+    volumes:
+      - './:/var/www'
+      - '${APP_STORAGE_PATH}:/mnt/storage'
+    networks:
+      - backend
+
+  backend-mysql:
+    image: mysql:8.0.29
+    container_name: backend-mysql
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - 'backend-mysql:/var/lib/mysql'
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    driver: bridge
+volumes:
+  backend-mysql:
+    driver: local

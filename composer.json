@@ -12,6 +12,9 @@
     "php": "^8.2",
     "d076/php-framework": "dev-main"
   },
+  "require-dev": {
+    "symfony/var-dumper": "^6.3"
+  },
   "repositories": [
     {
       "url": "https://github.com/D076/php-framework.git",

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use D076\PhpFramework\Controller\Controller as BaseController;
+use D076\PhpFramework\Http\Controller as BaseController;
 
 class Controller extends BaseController
 {
